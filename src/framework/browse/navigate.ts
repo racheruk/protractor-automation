@@ -1,4 +1,4 @@
-import {browser, ElementFinder} from "protractor";
+import {browser} from "protractor";
 import {Action} from "./action";
 
 /**
@@ -15,7 +15,7 @@ export class Navigate {
      */
     static clickAndGoToNonNgPage(elementToClick) {
         browser.waitForAngularEnabled(false);
-        Action.waitForAndClick(elementToClick);
+        Action.click(elementToClick);
     }
 
     /**
@@ -34,7 +34,7 @@ export class Navigate {
      * @param elementToCLick
      */
     static clickAndSwitchToPopupTabWindow(elementToCLick) {
-        Action.waitForAndClick(elementToCLick);
+        Action.click(elementToCLick);
         this.toPopupTabWindow();
     }
 
@@ -62,7 +62,7 @@ export class Navigate {
      */
     static clickAndSwitchToNonNgPopupTabWindow(elementToCLick) {
         browser.waitForAngularEnabled(false);
-        Action.waitForAndClick(elementToCLick);
+        Action.click(elementToCLick);
         this.toPopupTabWindow();
     }
 

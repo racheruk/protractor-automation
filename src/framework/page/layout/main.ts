@@ -1,8 +1,11 @@
-import {by} from "protractor";
+import {by, ElementFinder} from "protractor";
 import {Section} from "./section";
 
 export class Main extends Section {
-    constructor() {
-        super(by.css('div.container[role="main"]'));
+    id: string = 'main';
+    contentRoot: ElementFinder;
+    constructor(contentRootLocator) {
+        super(by.css('.container[role="main"]'));
+        this.contentRoot = this.getElement(contentRootLocator);
     }
 }

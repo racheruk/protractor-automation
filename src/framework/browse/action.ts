@@ -1,4 +1,6 @@
 import {browser, protractor} from "protractor";
+import {createWriteStream, mkdir} from "fs";
+import * as path from "path";
 
 export class Action {
 
@@ -12,9 +14,9 @@ export class Action {
     static click(elementToClick) {
         elementToClick.getAttribute('type').then(function(value){
             if (('radio' === value) || ('checkbox' === value)) {
-                this.waitForElementTobePresent(elementToClick);
+                Action.waitForElementTobePresent(elementToClick);
             } else {
-                this.waitForElementTobeClickable(elementToClick);
+                Action.waitForElementTobeClickable(elementToClick);
             }
             elementToClick.click();
         });
@@ -26,10 +28,10 @@ export class Action {
      * @param element
      * @param waitTimeInMillis
      */
-    static waitForElementTobeClickable(element, waitTimeInMillis) {
+    static waitForElementTobeClickable(element, waitTimeInMillis = 20 * 1000) {
         var EC = protractor.ExpectedConditions;
         var isClickable = EC.elementToBeClickable(element);
-        browser.wait(isClickable, ((waitTimeInMillis) ? waitTimeInMillis : 20 * 1000));
+        browser.wait(isClickable, waitTimeInMillis);
     };
 
     /**
@@ -38,10 +40,10 @@ export class Action {
      * @param element
      * @param waitTimeInMillis
      */
-    static waitForElementTobePresent(element, waitTimeInMillis) {
+    static waitForElementTobePresent(element, waitTimeInMillis = 20 * 1000) {
         var EC = protractor.ExpectedConditions;
         var isClickable = EC.presenceOf(element);
-        browser.wait(isClickable, ((waitTimeInMillis) ? waitTimeInMillis : 20 * 1000));
+        browser.wait(isClickable, waitTimeInMillis);
     };
 
     /**
@@ -73,4 +75,18 @@ export class Action {
             }
         });
     };
+
+    /**
+     *
+     */
+    static screenshot(fileName: string = 'screenshot' + new Date().getTime() +'.png') {
+        browser.takeScreenshot().then(function(screenshot){
+            let outputFolderPath = path.resolve(__dirname, '..', '..', '..', 'target');
+            mkdir(outputFolderPath, {recursive: true}, (e) => {});
+            let screenshotPath = path.resolve(outputFolderPath, fileName);
+            var stream = createWriteStream(screenshotPath);
+            stream.write(new Buffer(screenshot, 'base64'));
+            stream.end();
+        });
+    }
 }

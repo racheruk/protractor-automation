@@ -6,9 +6,9 @@ export class Page {
     header: Header;
     main: Main;
     footer: Footer;
-    constructor() {
+    constructor(contentRootLocator) {
         this.header = new Header();
-        this.main = new Main();
+        this.main = new Main(contentRootLocator);
         this.footer = new Footer();
     }
 }

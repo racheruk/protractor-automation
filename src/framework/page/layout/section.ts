@@ -1,13 +1,17 @@
 import {element, ElementFinder, Locator} from "protractor";
 
 export class Section {
-
     root: ElementFinder;
+    static ids: string[] = [];
 
     constructor(rootLocator: Locator) {
         this.root = element(rootLocator);
     }
 
+    /**
+     * Get child element in the section "this.root" refers to
+     * @param childElementLocator
+     */
     getElement(childElementLocator: Locator): ElementFinder {
         return this.root.element(childElementLocator);
     }
