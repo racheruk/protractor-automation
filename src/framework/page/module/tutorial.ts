@@ -1,6 +1,6 @@
 import {Page} from "../page";
 import {by, ElementFinder} from "protractor";
-import {promise as wdpromise, WebDriver, WebElementPromise} from 'selenium-webdriver';
+import {promise as wdpromise} from 'selenium-webdriver';
 
 export class Tutorial extends Page{
 
@@ -13,7 +13,7 @@ export class Tutorial extends Page{
         this.tutorialContent = this.main.getElement(by.css('div.main-grid.main-body-grid div.grid-right'));
     }
 
-    getDefaultTutorialTitle() {
+    getDefaultTutorialTitle(): wdpromise.Promise<string> {
         return this.tutorialContent.element(by.css('#phonecat-tutorial-app')).getText();
     }
 }
