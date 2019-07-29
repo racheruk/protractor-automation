@@ -9,8 +9,8 @@ export class Tutorial extends Page{
 
     constructor(){
         super(by.css('div.main-grid.main-body-grid'));
-        this.leftNav = this.main.getElement(by.css('div.main-grid.main-body-grid div.grid-left'));
-        this.tutorialContent = this.main.getElement(by.css('div.main-grid.main-body-grid div.grid-right'));
+        this.leftNav = this.content.main.findElementInSection(by.css('div.main-grid.main-body-grid div.grid-left'));
+        this.tutorialContent = this.content.main.findElementInSection(by.css('div.main-grid.main-body-grid div.grid-right'));
     }
 
     getDefaultTutorialTitle(): wdpromise.Promise<string> {

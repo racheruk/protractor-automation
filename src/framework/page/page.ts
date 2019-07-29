@@ -1,14 +1,14 @@
-import {Header} from "./layout/header";
-import {Main} from "./layout/main";
-import {Footer} from "./layout/footer";
+import {Header} from "./layout/1.header/header";
+import {Footer} from "./layout/3.footer/footer";
+import {Content} from "./layout/2.content/content";
 
 export class Page {
     header: Header;
-    main: Main;
+    content: Content;
     footer: Footer;
-    constructor(contentRootLocator) {
+    constructor(mainContentRootLocator) {
         this.header = new Header();
-        this.main = new Main(contentRootLocator);
+        this.content = new Content(mainContentRootLocator);
         this.footer = new Footer();
     }
 }

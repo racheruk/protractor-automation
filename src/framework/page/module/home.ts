@@ -8,8 +8,8 @@ export class Home extends Page {
 
     constructor() {
         super(by.css('div[app-run="hello.html"]'));
-        this.nameInput = this.main.getElement(by.model('yourName'));
-        this.greeting = this.main.getElement(by.binding('yourName'));
+        this.nameInput = this.content.main.findElementInSection(by.model('yourName'));
+        this.greeting = this.content.main.findElementInSection(by.binding('yourName'));
     }
 
     setName(name: string) {

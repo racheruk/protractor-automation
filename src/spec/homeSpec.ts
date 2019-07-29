@@ -17,8 +17,8 @@ describe('angularjs homepage', () => {
         expect(angularHomepage.getGreeting()).toEqual('Hello Julie!');
     });
 
-    it('Header should have site link', () => {
-        expect(angularHomepage.header.getElement(by.css('a[href*="angularjs.org"]')).isPresent()).toBeTruthy();
+    it('1Header should have site link', () => {
+        expect(angularHomepage.header.siteLink.isPresent()).toBeTruthy();
     });
 
     it('User is able to navigate to the Tutorial page', () => {

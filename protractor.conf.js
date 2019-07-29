@@ -3,7 +3,7 @@ exports.config = {
     capabilities: {
         browserName: 'chrome'
     },
-    specs: [ 'src/spec/homeSpec.ts' ],
+    specs: [ 'src/spec/*' ],
     onPrepare() {
         require('ts-node').register({
             project: require('path').join(__dirname, './tsconfig.json')

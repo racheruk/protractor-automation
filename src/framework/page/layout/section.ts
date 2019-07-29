@@ -1,28 +1,36 @@
 import {element, ElementFinder, Locator} from "protractor";
 
 export class Section {
-    root: ElementFinder;
-    static ids: string[] = [];
-
-    constructor(rootLocator: Locator) {
-        this.root = element(rootLocator);
+    parent: ElementFinder;
+    sectionRoot: ElementFinder;
+    constructor(parentLocator: Locator, sectionRootLocator: Locator) {
+        this.parent = element(parentLocator);
+        this.sectionRoot = this.parent.element(sectionRootLocator);
     }
 
     /**
-     * Get child element in the section "this.root" refers to
+     * Get child element in the section "this.parent" refers to
      * @param childElementLocator
      */
-    getElement(childElementLocator: Locator): ElementFinder {
-        return this.root.element(childElementLocator);
+    findElementInParent(childElementLocator: Locator): ElementFinder {
+        return this.parent.element(childElementLocator);
+    }
+
+    /**
+     * Get child element in the section "this.sectionRoot" refers to
+     * @param childElementLocator
+     */
+    findElementInSection(childElementLocator: Locator): ElementFinder {
+        return this.sectionRoot.element(childElementLocator);
     }
 
     /**
      * Gets an element from anywhere in the document. This should not be used
      *
      * @param childElementLocator
-     * @deprecated : Use a proper section root in the module page object and then use <code>getChildElement</code>
+     * @deprecated : Use a proper section root in the module page object and then use <code>findElementInSection</code>
      */
-    findElement(childElementLocator: Locator): ElementFinder {
+    findElementOnPage(childElementLocator: Locator): ElementFinder {
         return element(childElementLocator);
     }
 }
