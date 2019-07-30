@@ -45,6 +45,6 @@ Individual spec files should only use API methods. A common tendency is to use e
 
 >**Avoid using selectors inside the specs at all costs**. 
 
-Any time you see a need, there will always be a *Section* or *Page* that is good to hold that element. Use that relevant *Section* or *Page* to hold element information and provide API to interact with that element for ex. *Tutorial.getDefaultTutorialTitle()*
+Any time you see a need, there will always be a *Section* or *Page* that is good to hold that element. Use that relevant *Section* or *Page* to hold element information and provide API to interact with that element for ex. *Tutorial.getDefaultTutorialTitle()*. Here, a general thumb rule is to add API methods only if it provides a set of relevant actions (like fill username, pasword, click submit). Any low level element `expect` can be pushed to the individual spec. Its unlikely you will test an element details in more than one spec anyway. Bottom line, add API methods only when it has some benefit.
 
 Two spec files are provided one uses TypeScript and another JavScript. That is just to showcase that both can coexist. Again, they both are very simple in nature.
