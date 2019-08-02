@@ -8,5 +8,12 @@ exports.config = {
         require('ts-node').register({
             project: require('path').join(__dirname, './tsconfig.json')
         });
+    },
+    onComplete() {
+        browser.driver.close().then(function(){
+            browser.driver.quit().then(() => {
+                console.log("Shutdown complete");
+            });
+        });
     }
 };
