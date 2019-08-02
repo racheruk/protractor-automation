@@ -11,12 +11,12 @@ export class Header extends Section {
         super(by.css('body'), by.css('.header'));
         this.siteLink = this.findElementInSection(by.css('a[href="https://angularjs.org"]'));
         this.learnLink = this.findElementInSection(by.linkText('LEARN'));
-        this.tutorialLink = this.findElementInSection(by.linkText('Tutorial'));
+        this.tutorialLink = this.findElementInSection(by.css('a[href*="/tutorial"]'));
     }
 
-    goToTutorial() {
-        Action.click(this.learnLink);
-        Action.click(this.tutorialLink);
+    async goToTutorial() {
+        await Action.click(this.learnLink);
+        await Action.click(this.tutorialLink);
     }
 }
 

@@ -1,4 +1,4 @@
-import {browser, protractor} from "protractor";
+import {browser, ElementFinder, protractor} from "protractor";
 import {createWriteStream, mkdir} from "fs";
 import * as path from "path";
 
@@ -11,15 +11,15 @@ export class Action {
      *
      * @param elementToClick
      */
-    static click(elementToClick) {
-        elementToClick.getAttribute('type').then(function(value){
+    static async click(elementToClick: ElementFinder) {
+        await elementToClick.getAttribute('type').then(async function(value){
             if (('radio' === value) || ('checkbox' === value)) {
-                Action.waitForElementTobePresent(elementToClick);
+                await Action.waitForElementTobePresent(elementToClick);
             } else {
-                Action.waitForElementTobeClickable(elementToClick);
+                await Action.waitForElementTobeClickable(elementToClick);
             }
-            elementToClick.click();
         });
+        await elementToClick.click();
     }
 
     /**
@@ -28,10 +28,10 @@ export class Action {
      * @param element
      * @param waitTimeInMillis
      */
-    static waitForElementTobeClickable(element, waitTimeInMillis = 20 * 1000) {
+    static async waitForElementTobeClickable(element, waitTimeInMillis = 20 * 1000) {
         var EC = protractor.ExpectedConditions;
         var isClickable = EC.elementToBeClickable(element);
-        browser.wait(isClickable, waitTimeInMillis);
+        await browser.wait(isClickable, waitTimeInMillis);
     };
 
     /**
@@ -40,10 +40,10 @@ export class Action {
      * @param element
      * @param waitTimeInMillis
      */
-    static waitForElementTobePresent(element, waitTimeInMillis = 20 * 1000) {
+    static async waitForElementTobePresent(element, waitTimeInMillis = 20 * 1000) {
         var EC = protractor.ExpectedConditions;
         var isClickable = EC.presenceOf(element);
-        browser.wait(isClickable, waitTimeInMillis);
+        await browser.wait(isClickable, waitTimeInMillis);
     };
 
     /**
@@ -53,10 +53,10 @@ export class Action {
      *
      * @param elementToClick
      */
-    static selectCheckbox = function(elementToClick) {
-        elementToClick.getAttribute('checked').then(function(value) {
+    static async selectCheckbox(elementToClick) {
+        await elementToClick.getAttribute('checked').then(async function(value) {
             if (!value) {
-                this.waitForAndClick(elementToClick);
+                await this.click(elementToClick);
             }
         });
     };
@@ -68,10 +68,10 @@ export class Action {
      *
      * @param elementToClick
      */
-    static deselectCheckbox = function(elementToClick) {
-        elementToClick.getAttribute('checked').then(function(value) {
+    static async deselectCheckbox(elementToClick) {
+        await elementToClick.getAttribute('checked').then(async function(value) {
             if (value) {
-                this.waitForAndClick(elementToClick);
+                await this.click(elementToClick);
             }
         });
     };
@@ -79,8 +79,8 @@ export class Action {
     /**
      *
      */
-    static screenshot(fileName: string = 'screenshot' + new Date().getTime() +'.png') {
-        browser.takeScreenshot().then(function(screenshot){
+    static async screenshot(fileName: string = 'screenshot' + new Date().getTime() +'.png') {
+        await browser.takeScreenshot().then(function(screenshot){
             let outputFolderPath = path.resolve(__dirname, '..', '..', '..', 'target');
             mkdir(outputFolderPath, {recursive: true}, (e) => {});
             let screenshotPath = path.resolve(outputFolderPath, fileName);

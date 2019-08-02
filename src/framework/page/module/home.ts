@@ -1,4 +1,4 @@
-import {by, ElementFinder} from 'protractor';
+import {by, ElementFinder, promise as wdpromise} from 'protractor';
 import {Page} from "../page";
 
 export class Home extends Page {
@@ -12,11 +12,11 @@ export class Home extends Page {
         this.greeting = this.content.main.findElementInSection(by.binding('yourName'));
     }
 
-    setName(name: string) {
-        this.nameInput.sendKeys(name);
+    setName(name: string): wdpromise.Promise<void> {
+        return this.nameInput.sendKeys(name);
     }
 
-    getGreeting(): any {
+    getGreeting(): wdpromise.Promise<string> {
         return this.greeting.getText();
     }
 }

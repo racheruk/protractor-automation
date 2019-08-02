@@ -1,4 +1,5 @@
 exports.config = {
+    SELENIUM_PROMISE_MANAGER:false,
     framework: 'jasmine',
     capabilities: {
         browserName: 'chrome'
